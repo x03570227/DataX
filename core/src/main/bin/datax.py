@@ -111,10 +111,10 @@ def getOptionParser():
 def generateJobConfigTemplate(reader, writer):
     readerRef = "Please refer to the %s document:\n     https://github.com/alibaba/DataX/blob/master/%s/doc/%s.md \n" % (reader,reader,reader)
     writerRef = "Please refer to the %s document:\n     https://github.com/alibaba/DataX/blob/master/%s/doc/%s.md \n " % (writer,writer,writer)
-    print readerRef
-    print writerRef
+    print (readerRef)
+    print (writerRef)
     jobGuid = 'Please save the following configuration as a json file and  use\n     python {DATAX_HOME}/bin/datax.py {JSON_FILE_NAME}.json \nto run the job.\n'
-    print jobGuid
+    print (jobGuid)
     jobTemplate={
       "job": {
         "setting": {
@@ -134,15 +134,15 @@ def generateJobConfigTemplate(reader, writer):
     writerTemplatePath = "%s/plugin/writer/%s/plugin_job_template.json" % (DATAX_HOME,writer)
     try:
       readerPar = readPluginTemplate(readerTemplatePath);
-    except Exception, e:
-       print "Read reader[%s] template error: can\'t find file %s" % (reader,readerTemplatePath)
+    except Exception as e:
+       print ("Read reader[%s] template error: can\'t find file %s" % (reader,readerTemplatePath))
     try:
       writerPar = readPluginTemplate(writerTemplatePath);
-    except Exception, e:
-      print "Read writer[%s] template error: : can\'t find file %s" % (writer,writerTemplatePath)
+    except Exception as e:
+      print ("Read writer[%s] template error: : can\'t find file %s" % (writer,writerTemplatePath))
     jobTemplate['job']['content'][0]['reader'] = readerPar;
     jobTemplate['job']['content'][0]['writer'] = writerPar;
-    print json.dumps(jobTemplate, indent=4, sort_keys=True)
+    print (json.dumps(jobTemplate, indent=4, sort_keys=True))
 
 def readPluginTemplate(plugin):
     with open(plugin, 'r') as f:
@@ -168,7 +168,7 @@ def buildStartCommand(options, args):
 
     if options.remoteDebug:
         tempJVMCommand = tempJVMCommand + " " + REMOTE_DEBUG_CONFIG
-        print 'local ip: ', getLocalIp()
+        print ('local ip: ', getLocalIp())
 
     if options.loglevel:
         tempJVMCommand = tempJVMCommand + " " + ("-Dloglevel=%s" % (options.loglevel))
@@ -198,11 +198,11 @@ def buildStartCommand(options, args):
 
 
 def printCopyright():
-    print '''
+    print ('''
 DataX (%s), From Alibaba !
 Copyright (C) 2010-2017, Alibaba Group. All Rights Reserved.
 
-''' % DATAX_VERSION
+''' % DATAX_VERSION)
     sys.stdout.flush()
 
 
